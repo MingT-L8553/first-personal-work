@@ -41,19 +41,15 @@ def cutWords():
             continue
 
 # 保存为json数据
-def changeType():
-    pass
+def changeType(com_dict):
+    with open('../../comments.json', 'w') as f:
+        com_json = json.dumps(com_dict,ensure_ascii=False)
+        f.write(com_json)
 
-
-    # items = list(counts.items())
-    # items.sort(key=lambda x: x[1], reverse=True)
-
-    # for i in range(100):
-    #     word, count = items[i]
-    #     print("{0:<5}{1:>5}".format(word, count))
 
 if __name__ == '__main__':
-    # formatTxt()
-    cutWords()
+    formatTxt()
+    comments_dict = cutWords()
+    changeType(comments_dict)
 
 
