@@ -43,7 +43,7 @@ def cutWords():
 
 # 保存为json数据
 def changeType(com_dict):
-    with open('comments.json','w') as f:
+    with open('../../comments.json', 'w') as f:
         com_json = json.dumps(com_dict,ensure_ascii=False)
         f.write(com_json)
 
