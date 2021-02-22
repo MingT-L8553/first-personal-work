@@ -17,10 +17,9 @@
         <!-- 定义一个具备宽高的DOM容器，用来装词云 -->
         <div id='main'></div>
         <script type="text/javascript">
-            console.log('进入js代码');
             // 基于指定好的DOM，通过echarts.init方法初始化一个echarts实例
             var chart = echarts.init(document.getElementById('main'));
-            console.log(chart);
+            // console.log(chart);
             // 指定词云图的配置项和数据
             var option = {
                 // 给词云图添加一个标题，但是我不晓得怎么定义样式或者移动位置
@@ -53,29 +52,65 @@
                             shadowColor: '#333'
                         }
                     },
-                    // 把data空出来，使用Ajax从本地json中加载数据
                     data: []
                 } ]
             };
             chart.setOption(option);
-            window.onresize = chart.resize;
-            console.log('准备执行ajax');
 
+            window.onload = function(){
+                var url = 'resultData.json';
+                var request = new XMLHttpRequest();
+                request.open("get",url);
+                request.send(null);
+                request.onload = function(){
+                    // echarts中的data实际上是一个jsonnarray对象，所以返回一个json数组即可实现动态加载
+                    var jsonObj = new Array();
+                    if (request.status == 200) {                        
+                        // console.log(request);
+                        // console.log(request.responseText)
+
+                        //将获取的json数据赋值给data_json
+                        var data_json = request.responseText;
+                        //转换成json对象
+                        var obj = eval("("+data_json+")");
+                        // console.log(obj[0])
+                        for (var i = 0; i < obj.length; i++) {
+                            jsonObj.push({
+                                "name":obj[i].name,
+                                "value":Number(obj[i].value)
+                            });
+                        }
+                        // console.log(jsonObj);
+                        chart.setOption({
+                            series:[{
+                                type:'wordCloud',
+                                data:jsonObj
+                            }]
+                        });               
+                    }
+                }
+            }
+            // 窗口自适应
+            window.onresize = chart.resize;
+
+
+
+            // ajax有点小bug，有兴趣的可以试试找一找，我是不搞了😐
             // $.ajax({
             //     // 本地的就写本地的位置，如果是服务器的就写服务器的路径
             //     url:'resultData.json',
             //     type:'get',  //获取数据方式为get
             //     dataType:'json', //数据类型为json
-
             //     success: function(data){
+            //         //将josn数据转换
+            //         dd = eval("("+data+")")
             //         //请求成功后在页面加载时执行函数
             //         window.onload = function(){
-            //             console.log("函数执行成功");
             //             var keyWordlist = [];
-            //             for (var i = 0; i < data.length; i++) {
+            //             for (var i = 0; i < dd.length; i++) {
             //                 keyWordlist.push({
-            //                     name: data[i].name,
-            //                     value: data[i].value
+            //                     'name': data[i].name,
+            //                     'value': data[i].value
             //                 })
             //             }
             //             // 将数据加载到事先设置好的变量data[]
@@ -88,9 +123,9 @@
             //         }
 
             //     }
-
             // });
             
         </script>
+
     </body>
 </html>
