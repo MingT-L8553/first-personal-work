@@ -1,7 +1,15 @@
 # first-personal-work
 ### brief introduction
-    爬取腾讯视频《在一起》电视剧共20集评论信息
+    爬取腾讯视频《在一起》电视剧共20集的评论信息
     并根据评论信息分词制作词云图
+### Completed functions
+- 爬取腾讯视频《在一起》电视剧共20集的评论信息
+- 使用jieba对评论信息进行分词
+- 使用echarts制作词云图
+- 在index.html中渲染数据进行词云图展示
+- 将html等文件放入ECS通过简易网站展示词云图
+### Innovation
+- 使用Xshell、Xftp链接云服务器上传文件，建立简易网站对词云图进行展示
 ### Project structure
 >first-personal-work  
 >>README.md  
@@ -19,5 +27,5 @@
 >>>>echarts-wordcloud.min.js  
 >>>>echarts-wordcloud.min.js.map  
 >>>>echarts.min.js
-
+### 
 
