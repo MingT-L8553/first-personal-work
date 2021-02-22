@@ -52,9 +52,6 @@ if __name__ == '__main__':
     formatTxt()
     comments_dict = cutWords()
     changeType(comments_dict)
-<<<<<<< HEAD
 
-=======
->>>>>>> e76c89972cf142a439a6e3b566b2610937382021
 
 
