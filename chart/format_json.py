@@ -12,10 +12,9 @@ with open('comments.json','r') as f:
     datas = list()
     # 取前100个关键词
     for i in range(100):
-        data = {'name':sort_dict[i][0],'value':sort_dict[i][1]}
+        data = {"name":sort_dict[i][0],"value":str(sort_dict[i][1])}
         datas.append(data)
-    # print(len(datas))
     # print(datas)
-
-with open('resultData.json','w') as f:
-    f.write(str(datas))
+with open('resultData.json','w',encoding='utf-8') as f:
+    # 添加参数，ensure_ascii = False ,它默认是True
+    json.dump(datas,f,ensure_ascii=False)
